@@ -65,7 +65,7 @@ GiftParser.prototype.tokenize = function (data) {
 GiftParser.prototype.next = function (input) {
 	var curS = input.shift(); //supprime le premier élément du tableau
 	if (this.showParsedSymbols) {
-		console.log(curS);
+		// console.log(curS);
 	}
 	return curS
 }
@@ -82,7 +82,7 @@ GiftParser.prototype.expect = function (s, input) { // passe au jeton suivant et
 	if (s == this.next(input)) {
 		return true;
 	} else {
-		this.errMsg("symbol " + s + " doesn't match", input);
+		// this.errMsg("symbol " + s + " doesn't match", input);
 	}
 	return false;
 }
@@ -270,7 +270,7 @@ GiftParser.prototype.parseNumeric = function (input, question) {
 		question.max = parseFloat(number2); // Borne supérieure
 	}
 	else {
-		this.errMsg("Format numérique invalide. Attendu ':' ou '..'", input);
+		// this.errMsg("Format numérique invalide. Attendu ':' ou '..'", input);
 	}
 	this.expect("}", input);
 }
