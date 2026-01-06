@@ -2,9 +2,19 @@
 
 //pour la spec5
     
+/**
+ * Classe pour analyser le profil d'un ensemble de questions GIFT.
+ * Calcule les statistiques par type de question.
+ */
 class GiftProfile {
+    /**
+     * Constructeur de GiftProfile.
+     * @param {Array} questions - La liste des questions à analyser.
+     */
     constructor(questions) {
+        /** @type {Array} La liste des questions */
         this.questions = questions;
+        /** @type {Object} Les statistiques par type de question */
         this.stats = {
             'MCQ': 0,           // Choix multiples
             'MissingWord': 0,   // Mot manquant (sous-catégorie de MCQ)
@@ -16,9 +26,14 @@ class GiftProfile {
             'Credit': 0,        // Crédit partiel
             'Other': 0          // Sécurité
         };
+        /** @type {number} Le nombre total de questions */
         this.total = 0;
     }
 
+    /**
+     * Calcule les statistiques des questions.
+     * @returns {Array|null} Le rapport des statistiques ou null si aucune question.
+     */
     calculate() {
         this.total = this.questions.length;
         if (this.total === 0) return null;
@@ -39,6 +54,10 @@ class GiftProfile {
         return this.generateReport();
     }
 
+    /**
+     * Génère le rapport des statistiques.
+     * @returns {Array} Le rapport trié par pourcentage.
+     */
     generateReport() {
         const report = [];
         for (const [type, count] of Object.entries(this.stats)) {

@@ -3,18 +3,34 @@
 
 const GiftProfile = require('./GiftProfile');
 
+/**
+ * Classe pour la comparaison de profils d'examens GIFT.
+ * Compare un examen avec des profils de référence.
+ */
 class ComparisonProfile {
+    /**
+     * Constructeur de ComparisonProfile.
+     * @param {Array} examQuestions - Les questions de l'examen à comparer.
+     * @param {Array<Array>} referenceQuestionsList - Liste des listes de questions de référence.
+     */
     constructor(examQuestions, referenceQuestionsList) {
+        /** @type {Array} Les questions de l'examen à comparer */
         this.examQuestions = examQuestions;
+        /** @type {Array<Array>} Liste des listes de questions de référence */
         this.referenceQuestionsList = referenceQuestionsList; // Array of question arrays
+        /** @type {Array|null} Le profil de l'examen */
         this.examProfile = null;
+        /** @type {Array} Les profils des fichiers de référence */
         this.referenceProfiles = [];
+        /** @type {Array|null} Le profil moyen des références */
         this.averageProfile = null;
+        /** @type {Array|null} Le résultat de la comparaison */
         this.comparisonResult = null;
     }
 
     /**
-     * Calcule le profil de l'examen et des fichiers de référence
+     * Calcule le profil de l'examen et des fichiers de référence.
+     * @returns {Array} Le résultat de la comparaison.
      */
     analyze() {
         try {
@@ -41,7 +57,8 @@ class ComparisonProfile {
     }
 
     /**
-     * Calcule la moyenne des profils de référence
+     * Calcule la moyenne des profils de référence.
+     * @returns {Array|null} Le profil moyen ou null si aucune référence.
      */
     calculateAverageProfile() {
         if (this.referenceProfiles.length === 0) {
@@ -76,7 +93,8 @@ class ComparisonProfile {
     }
 
     /**
-     * Compare le profil de l'examen avec la moyenne nationale
+     * Compare le profil de l'examen avec la moyenne nationale.
+     * @returns {Array|null} Les données de comparaison ou null.
      */
     compareProfiles() {
         if (!this.examProfile || !this.averageProfile) {
@@ -117,7 +135,8 @@ class ComparisonProfile {
     }
 
     /**
-     * Retourne les données de comparaison
+     * Retourne les données de comparaison.
+     * @returns {Object} Les données de comparaison complètes.
      */
     getComparisonData() {
         return {

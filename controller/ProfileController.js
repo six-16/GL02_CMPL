@@ -7,11 +7,24 @@ const GiftParser = require('../model/GIFTParser');
 const GiftProfile = require('../model/GiftProfile');
 const ProfileView = require('../view/ProfileView');
 
+/**
+ * Contrôleur pour l'analyse de profils d'examens GIFT.
+ * Permet de traiter un fichier GIFT et d'afficher son profil statistique.
+ */
 class ProfileController {
+    /**
+     * Constructeur du ProfileController.
+     * Initialise la vue de profil.
+     */
     constructor() {
         this.view = new ProfileView();
     }
 
+    /**
+     * Traite un fichier GIFT et affiche son profil d'examen.
+     * @param {string} filePath - Le chemin du fichier GIFT à analyser.
+     * @returns {void}
+     */
     processFile(filePath) {
         // 1. Vérification de l'existence du fichier (Précondition)
         if (!fs.existsSync(filePath)) {

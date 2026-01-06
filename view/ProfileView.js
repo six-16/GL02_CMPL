@@ -2,17 +2,37 @@
 
 //vue de la spec05
 
+/**
+ * Classe pour l'affichage des profils d'examens.
+ * Gère l'affichage des statistiques et histogrammes des types de questions.
+ */
 class ProfileView {
     
+    /**
+     * Affiche le titre de l'analyse.
+     * @param {string} filename - Le nom du fichier analysé.
+     * @returns {void}
+     */
     displayTitle(filename) {
         console.log(`\n ANALYSE ET PROFILAGE DU FICHIER : ${filename}`);
         console.log("==================================================");
     }
 
+    /**
+     * Affiche un message d'erreur.
+     * @param {string} msg - Le message d'erreur.
+     * @returns {void}
+     */
     displayError(msg) {
         console.error(`Erreur : ${msg}`);
     }
 
+    /**
+     * Affiche l'histogramme des types de questions.
+     * @param {Array} report - Le rapport des statistiques.
+     * @param {number} total - Le nombre total de questions.
+     * @returns {void}
+     */
     displayHistogram(report, total) {
         if (!report || total === 0) {
             console.log("Le fichier ne contient aucune question valide.");

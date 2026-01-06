@@ -3,11 +3,23 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const Contact = require('../model/Contact');
 
+/**
+ * Contrôleur pour la génération de cartes de visite VCard.
+ * Permet de collecter les informations d'un enseignant et de générer un fichier VCard.
+ */
 class VCardController {
+    /**
+     * Constructeur du VCardController.
+     * Initialise les données d'entrée.
+     */
     constructor() {
         this.inputData = { nom: '', prenom: '', email: '', etablissement: '' };
     }
 
+    /**
+     * Démarre le processus de génération de VCard.
+     * @returns {Promise<void>}
+     */
     async start() {
         console.log("\n--- GENERATION DE VCARD ---");
         console.log("Veuillez saisir les informations de l'enseignant.\n");
@@ -27,6 +39,10 @@ class VCardController {
         this.genererFichier(contact);
     }
 
+    /**
+     * Collecte les données de l'utilisateur via des invites interactives.
+     * @returns {Promise<void>}
+     */
     async collectData() {
         const answers = await inquirer.prompt([
             {
@@ -69,6 +85,11 @@ class VCardController {
         this.inputData = answers;
     }
 
+    /**
+     * Génère et sauvegarde le fichier VCard.
+     * @param {Contact} contact - L'objet Contact contenant les informations.
+     * @returns {void}
+     */
     genererFichier(contact) {
         const vCardContent = contact.toVCardString();
         const fileName = contact.getFileName();

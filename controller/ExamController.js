@@ -7,11 +7,24 @@ const GiftParser = require('../model/GIFTParser');
 const ExamSession = require('../model/ExamSession');
 const ExamView = require('../view/ExamView');
 
+/**
+ * Contrôleur pour la gestion et la simulation d'examens GIFT.
+ * Permet de traiter un fichier GIFT et de simuler un examen interactif.
+ */
 class ExamController {
+    /**
+     * Constructeur du ExamController.
+     * Initialise la vue d'examen.
+     */
     constructor() {
         this.view = new ExamView();
     }
 
+    /**
+     * Traite et simule un examen à partir d'un fichier GIFT.
+     * @param {string} filePath - Le chemin du fichier GIFT à traiter.
+     * @returns {Promise<void>}
+     */
     async processExam(filePath) {
         // 1. Vérifications (Préconditions)
         if (!fs.existsSync(filePath)) {

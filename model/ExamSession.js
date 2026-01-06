@@ -1,9 +1,20 @@
 // model/ExamSession.js
 
+/**
+ * Classe gérant une session d'examen pour la simulation.
+ * Suit le score et vérifie les réponses.
+ */
 class ExamSession {
+    /**
+     * Constructeur d'ExamSession.
+     * @param {Array} questions - La liste des questions de l'examen.
+     */
     constructor(questions) {
+        /** @type {Array} La liste des questions */
         this.questions = questions;
+        /** @type {number} Le score actuel */
         this.score = 0;
+        /** @type {number} Le nombre total de questions répondables */
         this.totalAnswerable = 0; // Pour exclure les Descriptions qui ne sont pas des questions
     }
 
@@ -60,11 +71,18 @@ class ExamSession {
         }
     }
 
+    /**
+     * Incrémente le score de 1.
+     * @returns {void}
+     */
     incrementScore() {
         this.score++;
     }
 
-    // Calculer les stats finales
+    /**
+     * Calcule et retourne les résultats finaux.
+     * @returns {Object} Les statistiques de l'examen.
+     */
     getResults() {
         // On ne compte que les questions qui ont une vraie réponse (pas Description ou Essay)
         const answerableTypes = ['TrueFalse', 'MCQ', 'Numeric', 'Credit'];

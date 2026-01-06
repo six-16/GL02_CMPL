@@ -3,18 +3,36 @@
 
 const colors = require('colors');
 
+/**
+ * Classe pour l'affichage des résultats de comparaison de profils.
+ * Gère l'affichage formaté des comparaisons d'examens.
+ */
 class ComparisonView {
 
+    /**
+     * Affiche le message de bienvenue pour la comparaison.
+     * @returns {void}
+     */
     displayWelcome() {
         console.log('\n' + '='.repeat(70));
         console.log('  COMPARAISON DE PROFILS D\'EXAMENS (SPEC06)'.cyan.bold);
         console.log('='.repeat(70) + '\n');
     }
 
+    /**
+     * Affiche un message d'erreur.
+     * @param {string} message - Le message d'erreur.
+     * @returns {void}
+     */
     displayError(message) {
         console.error(`\n  Erreur : ${message}`.red);
     }
 
+    /**
+     * Affiche un message d'avertissement.
+     * @param {string} message - Le message d'avertissement.
+     * @returns {void}
+     */
     displayWarning(message) {
         console.warn(`\n   Avertissement : ${message}`.yellow);
     }
@@ -30,6 +48,10 @@ class ComparisonView {
      *   comparison: [...],
      *   referenceFileCount: number
      * }
+     * @param {string} examFile - Le chemin du fichier d'examen.
+     * @param {Array<string>} referenceFiles - La liste des fichiers de référence.
+     * @param {Object} data - Les données de comparaison.
+     * @returns {void}
      */
     displayComparison(examFile, referenceFiles, data) {
         console.log('\n' + '─'.repeat(70));
@@ -54,7 +76,9 @@ class ComparisonView {
     }
 
     /**
-     * Affiche les statistiques globales
+     * Affiche les statistiques globales.
+     * @param {Object} data - Les données de comparaison.
+     * @returns {void}
      */
     displayStatistics(data) {
         console.log('─'.repeat(70));
@@ -82,7 +106,9 @@ class ComparisonView {
     }
 
     /**
-     * Affiche le tableau comparatif principal
+     * Affiche le tableau comparatif principal.
+     * @param {Array} comparison - Les données de comparaison.
+     * @returns {void}
      */
     displayComparisonTable(comparison) {
         console.log('─'.repeat(70));
@@ -125,7 +151,9 @@ class ComparisonView {
     }
 
     /**
-     * Traduit les clés techniques en labels français
+     * Traduit les clés techniques en labels français.
+     * @param {string} type - Le type technique.
+     * @returns {string} Le label français.
      */
     translateTypeLabel(type) {
         const labels = {

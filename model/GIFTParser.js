@@ -1,9 +1,15 @@
 const Question = require("./semantique/Question.js");
 const QuestionCollection = require("./semantique/QuestionCollection.js");
 
+/**
+ * Constructeur de GiftParser.
+ * @param {boolean} sTokenize - Afficher la tokenization.
+ * @param {boolean} sParsedSymb - Afficher les symboles parsés.
+ */
 var GiftParser = function (sTokenize, sParsedSymb) {
-	// The list of questions parsed from the input file.
+	/** @type {Array} La liste des questions parsées */
 	this.parsedQuestion = [];
+	/** @type {Array} La liste des symboles reconnus */
 	this.symb = [
 		"::",
 		"{",
@@ -19,13 +25,21 @@ var GiftParser = function (sTokenize, sParsedSymb) {
 		"-",
 		"%"
 	];
+	/** @type {boolean} Afficher la tokenization */
 	this.showTokenize = sTokenize;
+	/** @type {boolean} Afficher les symboles parsés */
 	this.showParsedSymbols = sParsedSymb;
+	/** @type {number} Le nombre d'erreurs */
 	this.errorCount = 0;
 }
 
 //fonction principale qui rassemble le tout 
 
+/**
+ * Parse le contenu GIFT et remplit parsedQuestion.
+ * @param {string} data - Le contenu du fichier GIFT.
+ * @returns {void}
+ */
 GiftParser.prototype.parse = function (data) {
 	var tData = this.tokenize(data);
 	this.parsedQuestion = []; // Reset
@@ -43,11 +57,21 @@ GiftParser.prototype.parse = function (data) {
 
 
 // tokenize : tranform the data input into a list
+/**
+ * Supprime les commentaires des données.
+ * @param {string} data - Les données brutes.
+ * @returns {string} Les données sans commentaires.
+ */
 GiftParser.prototype.removeComments = function(data) {
     // Supprime les lignes commençant par //
     return data.replace(/\/\/.*$/gm, '');
 }
 
+/**
+ * Tokenize les données en liste de tokens.
+ * @param {string} data - Les données à tokenizer.
+ * @returns {Array} La liste des tokens.
+ */
 GiftParser.prototype.tokenize = function (data) {
     data = this.removeComments(data);
     
@@ -62,6 +86,11 @@ GiftParser.prototype.tokenize = function (data) {
 
 //=========================================== Outils pour parser ====================================================/
 
+/**
+ * Consomme et retourne le prochain token.
+ * @param {Array} input - La liste des tokens.
+ * @returns {string} Le token consommé.
+ */
 GiftParser.prototype.next = function (input) {
 	var curS = input.shift(); //supprime le premier élément du tableau
 	if (this.showParsedSymbols) {
@@ -70,6 +99,12 @@ GiftParser.prototype.next = function (input) {
 	return curS
 }
 
+/**
+ * Vérifie si le prochain token est égal à s.
+ * @param {string} s - Le symbole à vérifier.
+ * @param {Array} input - La liste des tokens.
+ * @returns {boolean} True si égal, false sinon.
+ */
 GiftParser.prototype.check = function (s, input) {
     if (input.length === 0) {
         return false;
@@ -78,6 +113,12 @@ GiftParser.prototype.check = function (s, input) {
     return input[0] === s;
 }
 
+/**
+ * Attend un symbole spécifique et le consomme.
+ * @param {string} s - Le symbole attendu.
+ * @param {Array} input - La liste des tokens.
+ * @returns {boolean} True si trouvé, false sinon.
+ */
 GiftParser.prototype.expect = function (s, input) { // passe au jeton suivant et répond à une question sur le symbole
 	if (s == this.next(input)) {
 		return true;
@@ -87,6 +128,11 @@ GiftParser.prototype.expect = function (s, input) { // passe au jeton suivant et
 	return false;
 }
 
+/**
+ * Vérifie si le symbole est autorisé.
+ * @param {string} s - Le symbole à vérifier.
+ * @returns {number|boolean} L'index si trouvé, false sinon.
+ */
 GiftParser.prototype.accept = function (s) { //vérifie si le symbôle fait bien partie de la liste autorisée
 	var idx = this.symb.indexOf(s);
 	// index 0 exists
@@ -98,12 +144,24 @@ GiftParser.prototype.accept = function (s) { //vérifie si le symbôle fait bien
 	return idx;
 }
 
+/**
+ * Affiche un message d'erreur.
+ * @param {string} msg - Le message d'erreur.
+ * @param {Array} input - La liste des tokens.
+ * @returns {void}
+ */
 GiftParser.prototype.errMsg = function (msg, input) { // pour afficher un message d'erreur
 	this.errorCount++;
 	console.log("Parsing Error ! on " + input + " -- msg : " + msg);
 }
 
 // Vérifie si un symbole spécifique  est présent dans le bloc 
+/**
+ * Vérifie si un symbole est présent dans le bloc de réponse.
+ * @param {Array} input - La liste des tokens.
+ * @param {string} sym - Le symbole à chercher.
+ * @returns {boolean} True si trouvé, false sinon.
+ */
 GiftParser.prototype.containsSymbol = function (input, sym) {
 	var i = 0;
 	// On boucle tant qu'on est pas à la fin du fichier 
@@ -118,6 +176,11 @@ GiftParser.prototype.containsSymbol = function (input, sym) {
 }
 //=====================================================================================================================//
 
+/**
+ * Parse une question depuis les tokens.
+ * @param {Array} input - La liste des tokens.
+ * @returns {void}
+ */
 GiftParser.prototype.parseQuestion = function (input) {
 	var question = new Question;
 
@@ -169,6 +232,12 @@ GiftParser.prototype.parseQuestion = function (input) {
 	this.parsedQuestion.push(question);
 }
 
+/**
+ * Parse une question Vrai/Faux.
+ * @param {Array} input - La liste des tokens.
+ * @param {Question} question - L'objet question à remplir.
+ * @returns {void}
+ */
 GiftParser.prototype.parseTrueFalse = function (input, question) {
 	question.category = "TrueFalse";
 
@@ -187,6 +256,12 @@ GiftParser.prototype.parseTrueFalse = function (input, question) {
 
 }
 
+/**
+ * Parse une question QCM.
+ * @param {Array} input - La liste des tokens.
+ * @param {Question} question - L'objet question à remplir.
+ * @returns {void}
+ */
 GiftParser.prototype.parseMCQ = function (input, question) {
 	question.category = "MCQ";
 	question.choices = [];
@@ -219,6 +294,11 @@ GiftParser.prototype.parseMCQ = function (input, question) {
 	this.expect("}", input);
 }
 
+/**
+ * Parse le contenu d'un choix de réponse.
+ * @param {Array} input - La liste des tokens.
+ * @returns {Object} L'objet choix avec text et feedback.
+ */
 GiftParser.prototype.parseChoiceContent = function (input) {
 	var choice = { text: "", feedback: "" }; // énoncé de la réponse et commentaire
 
@@ -246,6 +326,12 @@ GiftParser.prototype.parseChoiceContent = function (input) {
 	return choice;
 }
 
+/**
+ * Parse une question numérique.
+ * @param {Array} input - La liste des tokens.
+ * @param {Question} question - L'objet question à remplir.
+ * @returns {void}
+ */
 GiftParser.prototype.parseNumeric = function (input, question) {
 	question.category = "Numeric";
 	this.expect("#", input);
@@ -275,6 +361,12 @@ GiftParser.prototype.parseNumeric = function (input, question) {
 	this.expect("}", input);
 }
 
+/**
+ * Parse une question de correspondance.
+ * @param {Array} input - La liste des tokens.
+ * @param {Question} question - L'objet question à remplir.
+ * @returns {void}
+ */
 GiftParser.prototype.parseMatching = function (input, question) {
 	question.category = "Matching";
 	question.pairs = [];
@@ -311,6 +403,12 @@ GiftParser.prototype.parseMatching = function (input, question) {
 	this.expect("}", input);
 }
 
+/**
+ * Parse une question à crédits.
+ * @param {Array} input - La liste des tokens.
+ * @param {Question} question - L'objet question à remplir.
+ * @returns {void}
+ */
 GiftParser.prototype.parseCredit = function (input, question) {
 	// 1. Définition du type
 	question.category = "Credit";

@@ -9,8 +9,16 @@ const ComparisonController = require('./ComparisonController');
 const BanqueDeQuestions = require('./BanqueDeQuestions');
 const Affichage = require('../view/Affichage');
 
+/**
+ * Contrôleur principal de l'application SRYEM - GESTIONNAIRE D'EXAMENS GIFT v1.0
+ * Gère le menu principal et distribue les actions aux contrôleurs appropriés.
+ */
 class AppController {
 
+    /**
+     * Démarre la boucle principale de l'application, affichant le menu et gérant les choix de l'utilisateur.
+     * @returns {Promise<void>}
+     */
     async start() {
         this.showWelcome();
 
@@ -43,6 +51,9 @@ class AppController {
         }
     }
 
+    /**
+     * Affiche le message de bienvenue et efface la console.
+     */
     showWelcome() {
         console.clear();
         console.log("==================================================".cyan);
@@ -50,6 +61,11 @@ class AppController {
         console.log("==================================================\n".cyan);
     }
 
+    /**
+     * Distribue l'action sélectionnée à la méthode de gestion correspondante.
+     * @param {string} action - L'action à effectuer (par exemple 'search', 'create', etc.)
+     * @returns {Promise<void>}
+     */
     async dispatch(action) {
         switch (action) {
             case 'search':
@@ -75,6 +91,11 @@ class AppController {
         }
     }
 
+    /**
+     * Gère la fonctionnalité de recherche de questions dans la banque de questions.
+     * Invite l'utilisateur à saisir un mot-clé, recherche dans la banque et affiche les résultats.
+     * @returns {Promise<void>}
+     */
     async handleSearch() {
         const answer = await inquirer.prompt([{
             type: 'input',
@@ -134,6 +155,11 @@ class AppController {
         }
     }
 
+    /**
+     * Gère la fonctionnalité de simulation d'examen.
+     * Invite l'utilisateur à saisir le chemin d'un fichier GIFT et traite l'examen.
+     * @returns {Promise<void>}
+     */
     async handleSimulate() {
         const answer = await inquirer.prompt([{
             type: 'input',
@@ -145,6 +171,11 @@ class AppController {
         await ctrl.processExam(answer.file);
     }
 
+    /**
+     * Gère l'analyse de profil d'un fichier GIFT.
+     * Invite l'utilisateur à saisir le chemin d'un fichier et l'analyse.
+     * @returns {Promise<void>}
+     */
     async handleProfile() {
         const answer = await inquirer.prompt([{
             type: 'input',
@@ -161,6 +192,11 @@ class AppController {
         }]);
     }
 
+    /**
+     * Gère la fonctionnalité de comparaison.
+     * Démarre le contrôleur de comparaison.
+     * @returns {Promise<void>}
+     */
     async handleComparison() {
         const ctrl = new ComparisonController();
         await ctrl.start();

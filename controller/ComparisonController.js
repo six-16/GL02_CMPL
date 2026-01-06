@@ -8,13 +8,22 @@ const GiftParser = require('../model/GIFTParser');
 const ComparisonProfile = require('../model/ComparisonProfile');
 const ComparisonView = require('../view/ComparisonView');
 
+/**
+ * Contrôleur pour la comparaison de profils d'examens GIFT.
+ * Permet de comparer un examen avec des banques de questions de référence.
+ */
 class ComparisonController {
+    /**
+     * Constructeur du ComparisonController.
+     * Initialise la vue de comparaison.
+     */
     constructor() {
         this.view = new ComparisonView();
     }
 
     /**
-     * Démarre le flux interactif de comparaison de profils
+     * Démarre le flux interactif de comparaison de profils.
+     * @returns {Promise<void>}
      */
     async start() {
         this.view.displayWelcome();
@@ -101,7 +110,9 @@ class ComparisonController {
     }
 
     /**
-     * Demande interactivement un chemin de fichier à l'utilisateur
+     * Demande interactivement un chemin de fichier à l'utilisateur.
+     * @param {string} message - Le message à afficher pour l'invite.
+     * @returns {Promise<string>} Le chemin du fichier saisi par l'utilisateur.
      */
     async promptForFile(message) {
         const answer = await inquirer.prompt([
@@ -122,7 +133,8 @@ class ComparisonController {
     }
 
     /**
-     * Demande interactivement les fichiers de référence
+     * Demande interactivement les fichiers de référence.
+     * @returns {Promise<Array<string>>} La liste des chemins des fichiers de référence.
      */
     async promptForReferenceFiles() {
         const referenceFiles = [];
@@ -151,7 +163,10 @@ class ComparisonController {
     }
 
     /**
-     * Traite la comparaison à partir d'un fichier d'examen spécifique (utilisé par CLI)
+     * Traite la comparaison à partir d'un fichier d'examen spécifique (utilisé par CLI).
+     * @param {string} examFilePath - Le chemin du fichier d'examen à comparer.
+     * @param {Array<string>} referenceFilePaths - La liste des chemins des fichiers de référence.
+     * @returns {void}
      */
     processComparison(examFilePath, referenceFilePaths) {
         try {

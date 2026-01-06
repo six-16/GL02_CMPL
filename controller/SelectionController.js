@@ -5,13 +5,25 @@ const SelectionView = require('../view/SelectionView');
 const GiftExporter = require('../model/GiftExporter');
 const Affichage = require('../view/Affichage');
 
+/**
+ * Contrôleur pour la sélection et la création d'examens à partir de la banque de questions.
+ * Permet de rechercher, ajouter, supprimer des questions et sauvegarder un examen.
+ */
 class SelectionController {
+    /**
+     * Constructeur du SelectionController.
+     * Initialise la banque de questions, la sélection et la vue.
+     */
     constructor() {
         this.banque = new BanqueDeQuestions();
         this.selection = new QuestionSelection();
         this.view = new SelectionView();
     }
 
+    /**
+     * Démarre le processus interactif de sélection de questions.
+     * @returns {Promise<void>}
+     */
     async start() {
         console.log("Chargement de la banque de questions...");
         this.banque.chargerBanque();
@@ -44,6 +56,10 @@ class SelectionController {
         }
     }
 
+    /**
+     * Gère le workflow de recherche de questions.
+     * @returns {Promise<void>}
+     */
     async handleSearchWorkflow() {
         const keyword = await this.view.promptForSearchKeyword();
         const results = this.banque.rechercherQuestions(keyword);
@@ -65,6 +81,11 @@ class SelectionController {
         }
     }
 
+    /**
+     * Gère les actions sur une question spécifique (afficher, ajouter).
+     * @param {string} questionId - L'ID de la question.
+     * @returns {Promise<void>}
+     */
     async handleQuestionAction(questionId) {
         let actionLoop = true;
         while (actionLoop) {
@@ -96,6 +117,10 @@ class SelectionController {
         }
     }
 
+    /**
+     * Gère l'ajout manuel d'une question par ID.
+     * @returns {Promise<void>}
+     */
     async handleAdd() {
         if (this.selection.count() >= 20) {
             this.view.displayError("Vous avez atteint la limite maximale de 20 questions.");
@@ -115,6 +140,10 @@ class SelectionController {
         }
     }
 
+    /**
+     * Gère la suppression d'une question par ID.
+     * @returns {Promise<void>}
+     */
     async handleRemove() {
         if (this.selection.count() === 0) {
             this.view.displayError("La selection est vide.");
@@ -129,6 +158,10 @@ class SelectionController {
         }
     }
 
+    /**
+     * Gère la sauvegarde de la sélection en fichier GIFT.
+     * @returns {Promise<boolean>} True si l'utilisateur souhaite continuer, false sinon.
+     */
     async handleSave() {
         const validation = this.selection.isValid();
         if (!validation.valid) {
