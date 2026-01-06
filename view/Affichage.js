@@ -1,8 +1,13 @@
+/**
+ * Classe pour l'affichage des questions et résultats.
+ * Fournit des méthodes statiques pour afficher les questions de manière formatée.
+ */
 class Affichage {
 
     /**
      * Affiche une liste numérotée des questions.
      * @param {Array} questions - Liste des objets Question.
+     * @returns {void}
      */
     static afficherListeQuestions(questions) {
         if (questions.length === 0) {
@@ -23,6 +28,7 @@ class Affichage {
     /**
      * Affiche le contenu complet et détaillé d'une seule question.
      * @param {Object} q - L'objet Question.
+     * @returns {void}
      */
     static afficherQuestionComplete(q) {
         if (!q) {

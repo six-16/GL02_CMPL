@@ -1,11 +1,23 @@
 const Question = require("./semantique/Question.js");
 
+/**
+ * Classe pour l'exportation de questions au format GIFT.
+ * Génère une chaîne GIFT à partir d'une liste de questions.
+ */
 class GiftExporter {
+    /**
+     * Constructeur de GiftExporter.
+     * @param {Array} questionList - La liste des questions à exporter.
+     */
     constructor(questionList) {
+        /** @type {Array} La liste des questions à exporter */
         this.questions = questionList;
     }
 
-    // Fonction principale qui retourne tout le fichier GIFT sous forme de string
+    /**
+     * Exporte toutes les questions au format GIFT.
+     * @returns {string} La chaîne GIFT complète.
+     */
     export() {
         let giftContent = "";
         
@@ -17,6 +29,11 @@ class GiftExporter {
         return giftContent;
     }
 
+    /**
+     * Formate une question individuelle au format GIFT.
+     * @param {Question} q - La question à formater.
+     * @returns {string} La question formatée en GIFT.
+     */
     formatQuestion(q) {
         let output = "";
 

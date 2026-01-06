@@ -1,14 +1,28 @@
 // view/ExamView.js
 const readline = require('readline');
 
+/**
+ * Classe pour l'affichage et l'interaction lors de la simulation d'examen.
+ * Gère l'interface en ligne de commande pour poser les questions et recueillir les réponses.
+ */
 class ExamView {
+    /**
+     * Constructeur d'ExamView.
+     * Initialise l'interface readline.
+     */
     constructor() {
+        /** @type {readline.Interface} L'interface readline pour l'interaction utilisateur */
         this.rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
         });
     }
 
+    /**
+     * Pose une question à l'utilisateur et retourne sa réponse.
+     * @param {string} questionText - Le texte de la question.
+     * @returns {Promise<string>} La réponse de l'utilisateur.
+     */
     ask(questionText) {
         return new Promise((resolve) => {
             this.rl.question(questionText, (answer) => {
@@ -17,12 +31,23 @@ class ExamView {
         });
     }
 
+    /**
+     * Affiche l'en-tête de l'examen.
+     * @param {string} filename - Le nom du fichier d'examen.
+     * @returns {void}
+     */
     displayHeader(filename) {
         console.log("\n==================================================");
         console.log(`SIMULATION D'EXAMEN : ${filename}`);
         console.log("==================================================\n");
     }
 
+    /**
+     * Affiche une question avec ses choix si applicable.
+     * @param {Question} q - L'objet question.
+     * @param {number} index - L'index de la question.
+     * @returns {void}
+     */
     displayQuestion(q, index) {
         console.log(`\n[Question ${index + 1}] (${q.category})`);
         console.log("--------------------------------------------------");
@@ -53,6 +78,12 @@ class ExamView {
         }
     }
 
+    /**
+     * Affiche le feedback après une réponse.
+     * @param {boolean} isCorrect - Si la réponse est correcte.
+     * @param {string} correctAnswerText - Le texte de la bonne réponse.
+     * @returns {void}
+     */
     displayFeedback(isCorrect, correctAnswerText) {
         if (isCorrect) {
             console.log("Bonne réponse !");
@@ -64,7 +95,11 @@ class ExamView {
         }
     }
 
-    // Implémentation exacte de la maquette demandée
+    /**
+     * Affiche les résultats finaux de l'examen.
+     * @param {Object} results - Les résultats de l'examen.
+     * @returns {void}
+     */
     displayFinalResult(results) {
         console.log("\n==================================================");
         console.log("📊  RÉSULTAT FINAL");
@@ -75,10 +110,19 @@ class ExamView {
         console.log("==================================================\n");
     }
 
+    /**
+     * Affiche un message d'erreur.
+     * @param {string} msg - Le message d'erreur.
+     * @returns {void}
+     */
     displayError(msg) {
         console.error(`Erreur : ${msg}`);
     }
 
+    /**
+     * Ferme l'interface readline.
+     * @returns {void}
+     */
     close() {
         this.rl.close();
     }
