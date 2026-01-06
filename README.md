@@ -38,14 +38,14 @@ node cli.js
 ---
 ## 👥 Auteurs
 ### Version 1 (V1)
-Paul-Louis LEDOUX
-Mhedi EZ-ZOUAK
+Paul-Louis LEDOUX/
+Mhedi EZ-ZOUAK/
 Clément MENAUCOURT
 
 ### Version 2 (V2)
-Dina LOUARN 
-Sixtine CRAVE
-Kabinet SYLLA
+Dina LOUARN /
+Sixtine CRAVE/
+Kabinet SYLLA/
 Yevhenii TELYCHKO
 
 ---
