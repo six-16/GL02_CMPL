@@ -1,7 +1,7 @@
 # 🧠 GL02 — Générateur d'Examens GIFT & Outils CLI
 Version 2 (V2)
 
-## 📌 Présentation
+## 📌 Présentation 
 Ce projet est la deuxième version du générateur d’examens GIFT développé dans le cadre du module GL02.
  Il vise à fournir aux enseignants du Sealand Republic Youth Education Ministry (SRYEM) un outil en ligne de commande permettant de gérer, analyser et générer des examens numériques basés sur le format GIFT (General Import Format Technology), compatible avec Moodle.
 
