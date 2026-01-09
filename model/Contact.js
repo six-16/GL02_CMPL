@@ -65,7 +65,7 @@ class Contact {
         content += `FN:${this.prenom} ${this.nom}\r\n`;
         
         // Propriété N (Nom structuré : Nom;Prénom)
-        content += `N:${this.nom};${this.prenom};;;\r\n`;
+        content += `N:${this.nom};${this.prenom}\r\n`;
         
         // Propriété EMAIL
         content += `EMAIL:${this.email}\r\n`;
