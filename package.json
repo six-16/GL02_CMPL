@@ -1,9 +1,19 @@
 {
+  "name": "gl02-cmpl",
+  "version": "1.0.0",
+  "description": "Application de gestion de banque de questions GIFT",
+  "main": "cli.js",
+  "scripts": {
+    "test": "jasmine --config=spec/support/jasmine.json",
+    "start": "node cli.js"
+  },
   "dependencies": {
     "@caporal/core": "^2.0.7",
     "colors": "^1.4.0",
     "inquirer": "^8.2.6",
-    "open": "^11.0.0",
-    "package.json": "^2.0.1"
+    "open": "^8.4.2"
+  },
+  "devDependencies": {
+    "jasmine": "^5.1.0"
   }
 }
