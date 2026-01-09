@@ -2,13 +2,25 @@ const fs = require('fs');
 const path = require('path');
 const GiftParser = require('../model/GIFTParser.js');
 
+/**
+ * Classe représentant une banque de questions chargée depuis des fichiers GIFT.
+ * Permet de charger, rechercher et récupérer des questions.
+ */
 class BanqueDeQuestions {
+    /**
+     * Constructeur de la classe BanqueDeQuestions.
+     * Initialise la liste des questions et définit le chemin vers le dossier data.
+     */
     constructor() {
         this.questions = [];
         this.dirData = path.join(__dirname, '..', 'data'); // Chemin vers le dossier data
     }
 
 
+    /**
+     * Charge la banque de questions en lisant et parsant tous les fichiers .gift du dossier data.
+     * @returns {void}
+     */
     chargerBanque() {
         console.log(`Chargement des fichiers GIFT depuis : ${this.dirData}`);
 

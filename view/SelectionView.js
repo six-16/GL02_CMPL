@@ -1,7 +1,15 @@
 const inquirer = require('inquirer');
 
+/**
+ * Classe pour l'affichage et l'interaction lors de la sélection de questions.
+ * Gère les menus et invites pour la création d'examens.
+ */
 class SelectionView {
 
+    /**
+     * Affiche le menu principal de sélection.
+     * @returns {Promise<string>} L'action choisie par l'utilisateur.
+     */
     async showMenu() {
         const answer = await inquirer.prompt([
             {
@@ -24,6 +32,10 @@ class SelectionView {
         return answer.action;
     }
 
+    /**
+     * Invite l'utilisateur à saisir un mot-clé de recherche.
+     * @returns {Promise<string>} Le mot-clé saisi.
+     */
     async promptForSearchKeyword() {
         const answer = await inquirer.prompt([
             {
@@ -36,6 +48,11 @@ class SelectionView {
         return answer.keyword;
     }
 
+    /**
+     * Affiche les résultats de recherche et permet la sélection.
+     * @param {Array} questions - La liste des questions trouvées.
+     * @returns {Promise<string>} L'ID de la question sélectionnée ou 'BACK'.
+     */
     async showSearchResults(questions) {
         const choices = questions.map(q => {
             const snippet = q.text.substring(0, 60).replace(/(\r\n|\n|\r)/gm, " ");
@@ -60,6 +77,11 @@ class SelectionView {
         return answer.selectedId;
     }
 
+    /**
+     * Affiche le menu d'actions pour une question.
+     * @param {string} questionId - L'ID de la question.
+     * @returns {Promise<string>} L'action choisie.
+     */
     async showQuestionActionMenu(questionId) {
         const answer = await inquirer.prompt([
             {
@@ -76,6 +98,10 @@ class SelectionView {
         return answer.action;
     }
 
+    /**
+     * Invite l'utilisateur à saisir un ID de question.
+     * @returns {Promise<string>} L'ID saisi.
+     */
     async promptForId() {
         const answer = await inquirer.prompt([
             {
@@ -88,6 +114,10 @@ class SelectionView {
         return answer.id;
     }
 
+    /**
+     * Invite l'utilisateur à saisir un nom de fichier.
+     * @returns {Promise<string>} Le nom du fichier avec extension .gift.
+     */
     async promptForFilename() {
         const answer = await inquirer.prompt([
             {
@@ -100,6 +130,11 @@ class SelectionView {
         return answer.filename + ".gift";
     }
 
+    /**
+     * Affiche la liste des questions sélectionnées.
+     * @param {Array} questions - La liste des questions.
+     * @returns {void}
+     */
     displayList(questions) {
         console.log("\n=== CONTENU DE LA SELECTION ===");
         if (questions.length === 0) {
@@ -113,10 +148,20 @@ class SelectionView {
         console.log(`   > Total : ${questions.length} question(s)\n`);
     }
 
+    /**
+     * Affiche un message de succès.
+     * @param {string} msg - Le message de succès.
+     * @returns {void}
+     */
     displaySuccess(msg) {
         console.log(`OK : ${msg}`);
     }
 
+    /**
+     * Affiche un message d'erreur.
+     * @param {string} msg - Le message d'erreur.
+     * @returns {void}
+     */
     displayError(msg) {
         console.error(`ERREUR : ${msg}`);
     }

@@ -5,26 +5,36 @@ const fs = require('fs');
 const path = require('path');
 const open = require('open').default;
 
+/**
+ * Classe pour l'affichage des profils d'examens.
+ * Gère l'affichage des statistiques et histogrammes des types de questions.
+ */
 class ProfileView {
-    constructor(outputDir = './output') {
-        this.outputDir = outputDir;
-        if (!fs.existsSync(outputDir)) {
-            fs.mkdirSync(outputDir, { recursive: true });
-        }
-    }
-
+    
     displayTitle(filename) {
         console.log(`\n ANALYSE ET PROFILAGE DU FICHIER : ${filename}`);
         console.log("==================================================");
     }
 
+    /**
+     * Affiche un message d'erreur.
+     * @param {string} msg - Le message d'erreur.
+     * @returns {void}
+     */
     displayError(msg) {
         console.error(`Erreur : ${msg}`);
     }
 
-    // Dictionnaire de traduction des types
-    _getLabels() {
-        return {
+    displayHistogram(report, total) {
+        if (!report || total === 0) {
+            console.log("Le fichier ne contient aucune question valide.");
+            return;
+        }
+
+        console.log(`Total de questions : ${total}\n`);
+
+        // Dictionnaire pour traduire les clés techniques en français (comme demandé dans la spec)
+        const labels = {
             'MCQ': 'Choix multiples',
             'MissingWord': 'Mot manquant',
             'TrueFalse': 'Vrai / Faux',

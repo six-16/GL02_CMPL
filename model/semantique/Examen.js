@@ -5,9 +5,15 @@
 
 const QuestionCollection = require("./semantique/QuestionCollection.js");
 
+/**
+ * Crée un examen en sélectionnant des questions interactivement.
+ * @returns {void}
+ */
 function creerExament() {
 
+    /** @type {number} Nombre de questions dans l'examen */
     nbQuestions = 0;
+    /** @type {QuestionCollection} Collection des questions sélectionnées */
     questions = new QuestionCollection();
     
     // show questions 
@@ -48,7 +54,12 @@ function creerExament() {
 
 }
 
-function hasDoublons(array) {
+    /**
+     * Vérifie si un tableau contient des doublons.
+     * @param {Array} array - Le tableau à vérifier.
+     * @returns {boolean} True si des doublons sont trouvés, false sinon.
+     */
+    function hasDoublons(array) {
     const seen = new Set();
     for (const item of array) {
         if (seen.has(item)) {
@@ -59,7 +70,12 @@ function hasDoublons(array) {
     return false;
 }
 
-function validerNomFichier(nom) {
+    /**
+     * Valide le nom d'un fichier selon les règles spécifiées.
+     * @param {string} nom - Le nom du fichier à valider.
+     * @returns {boolean} True si le nom est valide, false sinon.
+     */
+    function validerNomFichier(nom) {
 
     valider = true;
 
